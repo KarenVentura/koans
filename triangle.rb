@@ -15,14 +15,15 @@
 #
 def triangle(a, b, c)
   # WRITE THIS CODE
- if a==b and a==c and c==b
-	return :equilateral
- elsif a!=b and a!=c and b!=c
- 	return :scalene
- else
-	return :isosceles
- end
+	if (a <= 0 || b <= 0 || c <= 0 || (a+b <= c) || (a+c <= b) || (b+c <= a))
+		raise TriangleError, "No two sides can add to be less than or equal to the other side" 
+	end
+	#raise RuntimeError if (a <= 0 || b <= 0 || c <= 0)
+  return :equilateral if (a == b && b == c)
+	return :scalene if (a != b && b != c && a != c)
+	:isosceles
 end
 # Error class used in part 2.  No need to change this code.
 class TriangleError < StandardError
 end
+
