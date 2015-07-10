@@ -26,12 +26,42 @@ require File.expand_path(File.dirname(__FILE__) + '/neo')
 # score([1,5,1,2,4]) => 250 points
 #
 # More scoring examples are given in the tests below:
-#
+
 # Your goal is to write the score method.
 
 def score(dice)
   # You need to write this method
+  score = 0
+	
+	values = Hash.new(0)
+	
+	dice.each do |x|
+	   values[x] += 1
+	end
+	
+	#values.length = size
+
+	(1..6).each do |x|
+	    if values[x] >= 3
+		if x == 1
+		   score += 1000
+		else
+		   score += 100 * x
+	    	end
+	 	values[x] = [values[x]-3, 0].max
+	    end
+	
+	if x == 1
+	   score += 100 * values[x]
+	elsif x == 5
+	   score += 50 * values[x]
+	end
+	end
+
+	score
 end
+	   	
+
 
 class AboutScoringProject < Neo::Koan
   def test_score_of_an_empty_list_is_zero
